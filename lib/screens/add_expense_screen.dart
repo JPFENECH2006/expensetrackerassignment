@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -6,7 +5,6 @@ import 'package:intl/intl.dart';
 
 import '../models/expense.dart';
 import '../providers/expense_provider.dart';
-import '../services/notification_service.dart';
 
 class AddExpenseScreen extends StatefulWidget {
   const AddExpenseScreen({super.key});
@@ -23,6 +21,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   DateTime? _selectedDate;
   String? _imagePath;
   String _category = 'Food';
+  String _type = 'Expense';
 
   Future<void> _pickDate() async {
     final picked = await showDatePicker(
@@ -56,31 +55,42 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
       date: _selectedDate!,
       category: _category,
       imagePath: _imagePath!,
+      isIncome: _type == 'Income',
     );
 
     Provider.of<ExpenseProvider>(context, listen: false)
         .addExpense(expense);
 
-    NotificationService.showSavedNotification();
     Navigator.pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Add Expense')),
+      appBar: AppBar(title: const Text('Add Transaction')),
       body: Form(
         key: _formKey,
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
+              DropdownButtonFormField<String>(
+                value: _type,
+                decoration: const InputDecoration(labelText: 'Type'),
+                items: const [
+                  DropdownMenuItem(value: 'Expense', child: Text('Expense')),
+                  DropdownMenuItem(value: 'Income', child: Text('Income')),
+                ],
+                onChanged: (v) => setState(() => _type = v!),
+              ),
+
               TextFormField(
                 controller: _titleCtrl,
                 decoration: const InputDecoration(labelText: 'Title'),
                 validator: (v) =>
                     v == null || v.isEmpty ? 'Enter title' : null,
               ),
+
               TextFormField(
                 controller: _amountCtrl,
                 keyboardType: TextInputType.number,
@@ -90,8 +100,10 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                         ? 'Enter valid amount'
                         : null,
               ),
+
               DropdownButtonFormField(
                 value: _category,
+                decoration: const InputDecoration(labelText: 'Category'),
                 items: const [
                   DropdownMenuItem(value: 'Food', child: Text('Food')),
                   DropdownMenuItem(value: 'Transport', child: Text('Transport')),
@@ -99,6 +111,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                 ],
                 onChanged: (v) => setState(() => _category = v!),
               ),
+
               TextButton(
                 onPressed: _pickDate,
                 child: Text(
@@ -107,15 +120,18 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                       : DateFormat.yMMMd().format(_selectedDate!),
                 ),
               ),
+
               ElevatedButton.icon(
                 onPressed: _pickImage,
                 icon: const Icon(Icons.camera_alt),
                 label: const Text('Take Photo'),
               ),
+
               const Spacer(),
+
               ElevatedButton(
                 onPressed: _saveExpense,
-                child: const Text('Save Expense'),
+                child: const Text('Save Transaction'),
               ),
             ],
           ),

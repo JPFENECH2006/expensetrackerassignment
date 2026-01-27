@@ -5,6 +5,7 @@ class Expense {
   final DateTime date;
   final String category;
   final String imagePath;
+  final bool isIncome;
 
   Expense({
     required this.id,
@@ -13,5 +14,6 @@ class Expense {
     required this.date,
     required this.category,
     required this.imagePath,
+    required this.isIncome,
   });
 }

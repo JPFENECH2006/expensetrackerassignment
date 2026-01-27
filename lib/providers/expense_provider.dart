@@ -7,8 +7,13 @@ class ExpenseProvider with ChangeNotifier {
 
   List<Expense> get expenses => _expenses;
 
-  double get totalBalance =>
-      _expenses.fold(0, (sum, e) => sum - e.amount);
+  double get totalBalance {
+    double total = 0;
+    for (var e in _expenses) {
+      total += e.isIncome ? e.amount : -e.amount;
+    }
+    return total;
+  }
 
   void loadExpenses() {
     _expenses.clear();
@@ -19,6 +24,12 @@ class ExpenseProvider with ChangeNotifier {
   void addExpense(Expense expense) {
     _expenses.add(expense);
     HiveService.saveExpense(expense);
+    notifyListeners();
+  }
+
+  void deleteExpense(String id) {
+    _expenses.removeWhere((e) => e.id == id);
+    HiveService.deleteExpense(id);
     notifyListeners();
   }
 }
