@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../models/expense.dart';
 import '../providers/expense_provider.dart';
+import '../services/notification_service.dart'; // 🔔 ADDED
 
 class AddExpenseScreen extends StatefulWidget {
   const AddExpenseScreen({super.key});
@@ -61,6 +62,8 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
     Provider.of<ExpenseProvider>(context, listen: false)
         .addExpense(expense);
 
+    NotificationService.showNotification(); // 🔔 TRIGGER
+
     Navigator.pop(context);
   }
 
@@ -75,7 +78,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
           child: Column(
             children: [
               DropdownButtonFormField<String>(
-                value: _type,
+                initialValue: _type,
                 decoration: const InputDecoration(labelText: 'Type'),
                 items: const [
                   DropdownMenuItem(value: 'Expense', child: Text('Expense')),
@@ -102,7 +105,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
               ),
 
               DropdownButtonFormField(
-                value: _category,
+                initialValue: _category,
                 decoration: const InputDecoration(labelText: 'Category'),
                 items: const [
                   DropdownMenuItem(value: 'Food', child: Text('Food')),

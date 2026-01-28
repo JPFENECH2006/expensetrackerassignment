@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "868643985253",
+    "project_id": "expnsemate",
+    "storage_bucket": "expnsemate.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:868643985253:android:fedddbe4ddfb48e5c8738c",
+        "android_client_info": {
+          "package_name": "com.example.expense_tracker_assignment"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWK9TVn3HN_wApF-qB7HXEGYZ6CvqXJ7o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

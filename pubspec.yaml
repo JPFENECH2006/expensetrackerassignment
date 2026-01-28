@@ -11,7 +11,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # UI icons
   cupertino_icons: ^1.0.8
 
   # State management
@@ -21,14 +20,21 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
 
-  # Device feature (camera)
+  # Camera
   image_picker: ^1.0.4
 
   # Date formatting
   intl: ^0.19.0
 
-  # 📊 Charts (Pie & Bar graphs)
+  # Charts
   fl_chart: ^0.68.0
+
+  # 🔔 Notifications
+  flutter_local_notifications: ^17.0.0
+
+  # 🔥 Firebase (ADDED)
+  firebase_core: ^2.24.2
+  firebase_analytics: ^10.8.0
 
 dev_dependencies:
   flutter_test:
