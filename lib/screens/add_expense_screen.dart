@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../models/expense.dart';
 import '../providers/expense_provider.dart';
-import '../services/notification_service.dart'; // 🔔 ADDED
+import '../services/notification_service.dart';
 
 class AddExpenseScreen extends StatefulWidget {
   const AddExpenseScreen({super.key});
@@ -62,7 +62,8 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
     Provider.of<ExpenseProvider>(context, listen: false)
         .addExpense(expense);
 
-    NotificationService.showNotification(); // 🔔 TRIGGER
+    
+    NotificationService.showAddNotification();
 
     Navigator.pop(context);
   }

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../providers/expense_provider.dart';
 import '../providers/theme_provider.dart';
+import '../services/notification_service.dart';
 import 'add_expense_screen.dart';
 import 'report_screen.dart';
 
@@ -28,12 +29,12 @@ class HomeScreen extends StatelessWidget {
     final provider = context.watch<ExpenseProvider>();
 
     return Scaffold(
-      /// 🔵 APP BAR
+      
       appBar: AppBar(
         backgroundColor: Colors.blue,
         title: const Text('ExpenseMate'),
         actions: [
-          /// 🌙 DARK MODE TOGGLE
+          
           IconButton(
             icon: const Icon(Icons.dark_mode),
             onPressed: () {
@@ -41,7 +42,7 @@ class HomeScreen extends StatelessWidget {
             },
           ),
 
-          /// 📊 REPORT BUTTON
+          
           IconButton(
             icon: const Icon(Icons.bar_chart),
             onPressed: () {
@@ -54,7 +55,7 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
 
-      /// ➕ ADD BUTTON
+      
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green,
         onPressed: () {
@@ -68,7 +69,7 @@ class HomeScreen extends StatelessWidget {
 
       body: Column(
         children: [
-          /// 🟢 BALANCE CARD
+          
           Card(
             color: Colors.green.shade100,
             margin: const EdgeInsets.all(16),
@@ -83,13 +84,13 @@ class HomeScreen extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black, // ✅ ALWAYS BLACK (FIX)
+                  color: Colors.black, 
                 ),
               ),
             ),
           ),
 
-          /// 📋 TRANSACTION LIST
+          
           Expanded(
             child: provider.expenses.isEmpty
                 ? const Center(child: Text('No transactions yet'))
@@ -106,10 +107,13 @@ class HomeScreen extends StatelessWidget {
                           color: Colors.red,
                           alignment: Alignment.centerRight,
                           padding: const EdgeInsets.only(right: 20),
-                          child: const Icon(Icons.delete, color: Colors.white),
+                          child:
+                              const Icon(Icons.delete, color: Colors.white),
                         ),
                         onDismissed: (_) {
                           provider.deleteExpense(e.id);
+                          NotificationService
+                              .showDeleteNotification(); 
                         },
                         child: Card(
                           margin: const EdgeInsets.symmetric(
@@ -121,7 +125,7 @@ class HomeScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: ListTile(
-                            /// 📸 IMAGE OR ICON
+                            
                             leading: ClipRRect(
                               borderRadius: BorderRadius.circular(8),
                               child: e.imagePath.isNotEmpty &&
@@ -147,6 +151,7 @@ class HomeScreen extends StatelessWidget {
                                     ),
                             ),
 
+                            
                             title: Text(
                               e.title,
                               style: const TextStyle(
@@ -154,11 +159,12 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
 
+                            
                             subtitle: Text(
                               '${e.category} • ${e.date.day}/${e.date.month}/${e.date.year}',
                             ),
 
-                            /// 💰 AMOUNT
+                            
                             trailing: Text(
                               e.isIncome
                                   ? '+\$${e.amount.toStringAsFixed(2)}'

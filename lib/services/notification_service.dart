@@ -14,7 +14,8 @@ class NotificationService {
     await _notifications.initialize(settings);
   }
 
-  static Future<void> showNotification() async {
+  
+  static Future<void> showAddNotification() async {
     const AndroidNotificationDetails androidDetails =
         AndroidNotificationDetails(
       'expense_channel',
@@ -29,8 +30,30 @@ class NotificationService {
 
     await _notifications.show(
       0,
-      'Transaction Saved',
+      'Transaction Added',
       'Your transaction was added successfully',
+      details,
+    );
+  }
+
+  
+  static Future<void> showDeleteNotification() async {
+    const AndroidNotificationDetails androidDetails =
+        AndroidNotificationDetails(
+      'expense_channel',
+      'Expenses',
+      channelDescription: 'Expense notifications',
+      importance: Importance.max,
+      priority: Priority.high,
+    );
+
+    const NotificationDetails details =
+        NotificationDetails(android: androidDetails);
+
+    await _notifications.show(
+      1,
+      'Transaction Deleted',
+      'The transaction was removed',
       details,
     );
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-// 🔥 Firebase (ADDED)
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
@@ -10,18 +10,18 @@ import 'providers/expense_provider.dart';
 import 'providers/theme_provider.dart';
 import 'screens/home_screen.dart';
 import 'services/hive_service.dart';
-import 'services/notification_service.dart'; // 🔔 ADDED
+import 'services/notification_service.dart'; 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 🔥 Firebase initialization (ADDED)
+  
   await Firebase.initializeApp();
 
   await Hive.initFlutter();
   await HiveService.init();
 
-  await NotificationService.init(); // 🔔 REQUIRED
+  await NotificationService.init(); 
 
   runApp(const ExpenseMateApp());
 }
@@ -31,7 +31,7 @@ class ExpenseMateApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 🔥 Optional analytics event (safe to keep)
+    
     FirebaseAnalytics.instance.logEvent(name: 'app_started');
 
     return MultiProvider(

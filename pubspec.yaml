@@ -29,10 +29,10 @@ dependencies:
   # Charts
   fl_chart: ^0.68.0
 
-  # 🔔 Notifications
+  # Notifications
   flutter_local_notifications: ^17.0.0
 
-  # 🔥 Firebase (ADDED)
+  
   firebase_core: ^2.24.2
   firebase_analytics: ^10.8.0
 
